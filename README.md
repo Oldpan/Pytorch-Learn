@@ -1,2 +1,3 @@
 # Pytorch-Learn
-## From zero to hundred,and learn pytorch the hard
+## Learn the pytorch the hard way
+
