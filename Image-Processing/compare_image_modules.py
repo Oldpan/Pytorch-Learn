@@ -1,8 +1,8 @@
 # Compare Image-Processing Modules
-# Use Transforms Module of torchvision
-# 				&&&
-# 对比python中不同的图像处理模块
+# Use Different Transforms Module of torchvision
+# 对比python中不同的图像处理模块，PIL、skimage，cv2以及pyplot模块载入图像的格式
 # 并且使用torchvision中的transforms模块进行图像处理
+# 在pycharm中debug --> 理解运行过程
 
 
 # packages
@@ -45,7 +45,7 @@ img_opencv = cv2.cvtColor(img_opencv, cv2.COLOR_BGR2RGB)
 plt.figure()
 my_imshow(img_opencv, title='img_opencv_new')
 
-
+# 将图像转化为tensor变量
 toTensor = transforms.Compose([transforms.ToTensor()])
 
 # 尺寸变化、缩放
