@@ -22,7 +22,7 @@ img_plt = plt.imread('./images/dancing.jpg')
 
 print('The shape of \n img_skimage is {}\n img_opencv is {}\n img_plt is {}\n'.format(img_skimage.shape, img_opencv.shape, img_plt.shape))
 print('The size of img_PIL is {} \n The mode of img_PIL is {}'.format(img_PIL.size, img_PIL.mode))
-print('The type of \n img_skimage is {}\n img_opencv is {}\n img_plt is {}\n img_PIL if {}'.format(type(img_skimage), type(img_opencv), type(img_plt), type(img_PIL)))
+print('The type of \n img_skimage is {}\n img_opencv is {}\n img_plt is {}\n img_PIL is {}'.format(type(img_skimage), type(img_opencv), type(img_plt), type(img_PIL)))
 
 
 # 定义一个图像显示函数
