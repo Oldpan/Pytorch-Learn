@@ -31,11 +31,11 @@ x = img[np.newaxis, :]
 
 target = 'llvm'
 
-input_name = '0'  # change '1' to '0'
+input_name = '0'
 shape_dict = {input_name: x.shape}
 sym, params = relay.frontend.from_onnx(onnx_model, shape_dict)
 
-sym = tvm.relay.quantize.quantize(sym, params)
+# sym = tvm.relay.quantize.quantize(sym, params)
 
 with relay.build_config(opt_level=3):
     intrp = relay.build_module.create_executor('graph', sym, tvm.cpu(0), target)

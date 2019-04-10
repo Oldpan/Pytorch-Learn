@@ -138,5 +138,5 @@ def mobilenetv2(pretrained=True):
 
 if __name__ == '__main__':
     model = mobilenetv2(True)
-    example = torch.ones(1,3,224,224)
+    example = torch.ones(1, 3, 224, 224)
     output = model(example)
