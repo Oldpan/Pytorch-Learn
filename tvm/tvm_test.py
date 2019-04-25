@@ -50,21 +50,21 @@ with relay.build_config(opt_level=3):
 dtype = 'float32'
 func = intrp.evaluate(sym)
 
-for i in range(5):
-
-    output = func(tvm.nd.array(x.astype(dtype)), **params).asnumpy()
-    # tvm_output = intrp.evaluate(sym)(tvm.nd.array(x.astype(dtype)), **params).asnumpy()
-    # tt = tvm_output.argmax()
-    # print(tt)
-    print(output.argmax())
-
-
-# since = time.time()
-# for i in range(1000):
+# for i in range(5):
+#
 #     output = func(tvm.nd.array(x.astype(dtype)), **params).asnumpy()
-# time_elapsed = time.time() - since
-# print('Time elapsed is {:.0f}m {:.0f}s {:.4}ms'.
-#       format(time_elapsed // 60, time_elapsed % 60 , time_elapsed*1000))  # 打印出来时间
+#     # tvm_output = intrp.evaluate(sym)(tvm.nd.array(x.astype(dtype)), **params).asnumpy()
+#     # tt = tvm_output.argmax()
+#     # print(tt)
+#     print(output.argmax())
+
+
+since = time.time()
+for i in range(1000):
+    output = func(tvm.nd.array(x.astype(dtype)), **params).asnumpy()
+time_elapsed = time.time() - since
+print('Time elapsed is {:.0f}m {:.0f}s {:.4}ms'.
+      format(time_elapsed // 60, time_elapsed % 60, time_elapsed*1000))  # 打印出来时间
 
 
 # from matplotlib import pyplot as plt
