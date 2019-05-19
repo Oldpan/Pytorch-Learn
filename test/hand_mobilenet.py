@@ -295,7 +295,8 @@ class Lambda(nn.Module):
 class Flatten(nn.Module):
     def forward(self, input):
         # output = input.view(input.size(0), -1)
-        output = input.view([int(input.size(0)), -1])
+        # output = input.view([int(input.size(0)), -1])
+        output = input.flatten(1)
         return output
 
 
@@ -329,19 +330,18 @@ model = nn.Sequential(body, head)
 
 if __name__ == '__main__':
 
-    state = torch.load('mobilenetv2-64_SS.pth')
+    state = torch.load('/home/prototype/Documents/gesture/hand-images/models/mobilenetv2-64_SS.pth')
     model.load_state_dict(state['model'], strict=True)
 
-    example = torch.rand(1, 3, 128, 128)
+    example = torch.rand(1, 3, 64, 64)
     print(model)
 
-
-    # torch_out = torch.onnx.export(model,
-    #                               example,
-    #                               "new-mobilenetv2-128_S.onnx",
-    #                               verbose=True,
-    #                               export_params=True
-    #                               )
+    torch_out = torch.onnx.export(model,
+                                  example,
+                                  "mobilenetv2-64_SS.onnx",
+                                  verbose=True,
+                                  export_params=True
+                                  )
 
 
 # model.eval()

@@ -68,9 +68,9 @@ def hard_nms(box_scores, iou_threshold, top_k=-1, candidate_size=200):
 label_path = 'hand-model-labels.txt'
 
 
-onnx_model = onnx.load('MobSSD-HandDetect.onnx')
+onnx_model = onnx.load('MobileNetV2-SSDLite-Hand-9496.onnx')
 
-orig_image = cv2.imread('../../datasets/hand-image/hands_2.jpg')
+orig_image = cv2.imread('../../datasets/hand-image/hands.jpg')
 width = orig_image.shape[1]
 height = orig_image.shape[0]
 
@@ -95,7 +95,7 @@ def transform_image(image):
     return image
 
 
-img = Image.open('../../datasets/hand-image/hands_2.jpg').resize((300, 300))
+img = Image.open('../../datasets/hand-image/hands.jpg').resize((300, 300))
 # img = transform_image(img)
 
 img = np.array(img).transpose((2, 0, 1)).astype('float32')
@@ -178,6 +178,8 @@ boxes, labels, probs = picked_box_probs[:, :4], np.array(picked_labels), picked_
 
 for i in range(boxes.shape[0]):
     box = boxes[i, :]
+    # box[1] -= 60
+    # box[3] += 60
     cv2.rectangle(orig_image, (box[0], box[1]), (box[2], box[3]), (255, 255, 0), 4)
     label = f"{class_names[labels[i]]}: {probs[i]:.2f}"
     cv2.putText(orig_image, label,
