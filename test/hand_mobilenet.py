@@ -58,7 +58,7 @@ class InvertedResidual(nn.Module):
 
     def forward(self, x):
         if self.use_res_connect:
-            return x + self.conv(x)
+            return x + self.conv(x)    # 在64 x 64 这个输入的model中没有执行resnet类似的结构
         else:
             return self.conv(x)
 
@@ -330,18 +330,19 @@ model = nn.Sequential(body, head)
 
 if __name__ == '__main__':
 
-    state = torch.load('/home/prototype/Documents/gesture/hand-images/models/mobilenetv2-64_SS.pth')
-    model.load_state_dict(state['model'], strict=True)
+    # state = torch.load('/home/prototype/Documents/gesture/hand-images/models/mobilenetv2-64_SS.pth')
+    # model.load_state_dict(state['model'], strict=True)
 
-    example = torch.rand(1, 3, 64, 64)
+    example = torch.rand(10, 3, 64, 64)
     print(model)
+    out = model(example)
 
-    torch_out = torch.onnx.export(model,
-                                  example,
-                                  "mobilenetv2-64_SS.onnx",
-                                  verbose=True,
-                                  export_params=True
-                                  )
+    # torch_out = torch.onnx.export(model,
+    #                               example,
+    #                               "mobilenetv2-64_SS.onnx",
+    #                               verbose=True,
+    #                               export_params=True
+    #                               )
 
 
 # model.eval()

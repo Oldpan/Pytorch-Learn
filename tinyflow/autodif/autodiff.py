@@ -328,20 +328,26 @@ def gradients(output_node, node_list):
     A list of gradient values, one for each node in node_list respectively.
     """
     # a map from node to a list of gradient contributions from each output node
+    # 辅助map 用于存放所有node对应的未整理的grad
     node_to_output_grads_list = {}
     # Special note on initializing gradient of output_node as oneslike_op(output_node):
     # We are really taking a derivative of the scalar reduce_sum(output_node)
     # instead of the vector output_node. But this is the common case for loss function.
     node_to_output_grads_list[output_node] = [oneslike_op(output_node)]
     # a map from node to the gradient of that node
+    # 整理后的 对应node的grad map
     node_to_output_grad = {}
     # Traverse graph in reverse topological order given the output_node that we are taking gradient wrt.
+    # 我们首先使用dfs先序遍历一遍表达式 之后再逆序一下 就得到反向的元素顺序
     reverse_topo_order = reversed(find_topo_sort([output_node]))
 
     for node in reverse_topo_order:
 
+        # 一些变量的导数可能有多个部分 需要将计算出来的多项式导数加起来
         grad = sum_node_list(node_to_output_grads_list[node])
+        # 最终将计算好的导数存放到 node_to_output_grad 这个 map 中
         node_to_output_grad[node] = grad
+        # 根据上一个算子传递过来的 grad 与当前这个 算子node 得到 inputs 的 grads
         input_grads = node.op.gradient(node, grad)
 
         for id in range(len(node.inputs)):

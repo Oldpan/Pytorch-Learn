@@ -6,10 +6,11 @@ def my_test():
     x1 = ad.Variable(name="x1")
     x2 = ad.Variable(name="x2")
 
-    y = x1 * x2 + x1
+    y = (x1 + x2) * x1
 
     grad_x1, grad_x2 = ad.gradients(y, [x1, x2])
 
+    pass
 
 def test_identity():
     x2 = ad.Variable(name="x2")
